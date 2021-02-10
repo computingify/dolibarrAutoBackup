@@ -59,7 +59,7 @@ if [ "$?" = "0" ]; then
   echo -e "${GREEN} Done"
   # Remove old files
   echo -e "${NC} Remove temp files"
-  sudo rm -rf /var/lib/automysqlbackup/daily/*
+  sudo rm -rf /var/lib/automysqlbackup/daily
   if [ "$?" = "0" ]; then
     echo -e "${GREEN} Done"
     echo -e "${NC} Send data to the cloud using rclone"

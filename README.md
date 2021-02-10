@@ -1,16 +1,17 @@
 # Installer automysqlbackup
 sudo apt install automysqlbackup
-// configurer automysqlbackup
+### configurer automysqlbackup
 sudo nano /etc/default/automysqlbackup
-// voir dans le fichier de conf.php pour avoir les informations sur la base de donnée
+voir dans le fichier de conf.php pour avoir les informations sur la base de donnée
 
 # Lancer automysqlbackup
 sudo automysqlbackup
 
 #Voir ce qui été sauvegarde par automysqlbackup
 sudo ls -lhart /var/lib/automysqlbackup/daily
-
-# Rendre le script executable
+# Utiliser le script de sauvegarde
+Prendre le script de autoSave.sh qui se trouve sous git
+### Rendre le script executable
 chmod +x autosave.sh
 
 # Ajouter dans cron
