@@ -43,7 +43,7 @@ echo -e "${GREEN} Done"
 
 # Create archive
 echo -e "${NC} Create tar.gz"
-#sudo tar -czvf TAR_ROOT /var/lib/automysqlbackup/daily
+sudo tar -czvf "${TAR_ROOT}" /var/lib/automysqlbackup/daily
 if [ "$?" = "0" ]; then
   echo -e "${GREEN} Done"
   # Remove old files
