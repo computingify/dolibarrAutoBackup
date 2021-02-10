@@ -9,6 +9,16 @@ TAR_DIR=~/dolibarrAutosave
 TAR_NAME=dolibarrBackup.tar.gz
 TAR_ROOT="${TAR_DIR}/${TAR_NAME}"
 
+# Launch DB backup
+echo -e "${NC} Launch DB backup"
+sudo automysqlbackup
+if [ "$?" = "0" ]; then
+  echo -e "${GREEN} Done"
+else
+  echo -e "${RED} Error in database backup create"
+  exit 1
+fi
+
 # Configuration file backup
 echo -e "${NC} Directory creation for config"
 sudo mkdir -p /var/lib/automysqlbackup/daily/config
@@ -43,7 +53,7 @@ echo -e "${GREEN} Done"
 
 # Create archive
 echo -e "${NC} Create tar.gz"
-sudo tar -czvf "${TAR_ROOT}" /var/lib/automysqlbackup/daily
+sudo tar -czf "${TAR_ROOT}" /var/lib/automysqlbackup/daily
 if [ "$?" = "0" ]; then
   echo -e "${GREEN} Done"
   # Remove old files
