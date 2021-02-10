@@ -54,11 +54,12 @@ echo -e "${GREEN} Done"
 # Create archive
 echo -e "${NC} Create tar.gz"
 sudo tar -czf "${TAR_ROOT}" /var/lib/automysqlbackup/daily
+
 if [ "$?" = "0" ]; then
   echo -e "${GREEN} Done"
   # Remove old files
   echo -e "${NC} Remove temp files"
-  sudo rm -rf /var/lib/automysqlbackup/daily
+  sudo rm -rf /var/lib/automysqlbackup/daily/*
   if [ "$?" = "0" ]; then
     echo -e "${GREEN} Done"
     echo -e "${NC} Send data to the cloud using rclone"
@@ -85,5 +86,5 @@ if [ "$?" = "0" ]; then
 else
   echo -e "${RED} Error in compressed file creation"
 fi
-
+rm -rf TAR_ROOT
 exit 0
