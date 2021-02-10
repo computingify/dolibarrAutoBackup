@@ -65,6 +65,15 @@ if [ "$?" = "0" ]; then
     /usr/bin/rclone copy --update --verbose --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "${TAR_ROOT}" "gdriveComputingify:dolibarrBackup"
     if [ "$?" = "0" ]; then
       echo -e "${GREEN} Done"
+      # Remove tar file
+      echo -e "${NC} Remove tar file sent"
+      rm -rf "${TAR_ROOT}"
+      if [ "$?" = "0" ]; then
+        echo -e "${GREEN} Done"
+      else
+        echo -e "${RED} Error when try to remove tar file backup"
+	exit 1
+      fi
     else
       echo -e "${RED} Error when sending backup to the cloud"
       exit 1
@@ -76,3 +85,5 @@ if [ "$?" = "0" ]; then
 else
   echo -e "${RED} Error in compressed file creation"
 fi
+
+exit 0
