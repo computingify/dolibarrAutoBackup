@@ -25,3 +25,11 @@ crontad -e
  sudo service rsyslog restart
  ### Les log se trouvent ici:
  more /var/mail/pi
+
+# Fonctionnement
+on realise une extraction de la base de donnee
+on prend les differents dossier dolibarr a sauvegarder et on en fait une copy dans le repertoire du scrip
+on creer un targz du tout
+on nomme ce tar en ajoutant le numero de la semaine a la fin, de cette maniere nois avons un fichier de backup par jour (celui ci est ecrase a la prochaine sauvegarde du meme jour)
+on envoi ce tar sur gDrive
+on supprime l'ensemble des fichiers temporaires
