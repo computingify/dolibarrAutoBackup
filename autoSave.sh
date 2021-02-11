@@ -6,7 +6,9 @@ GREEN='\033[1;32m'
 NC='\033[0m'
 
 TAR_DIR=~/dolibarrAutosave
-TAR_NAME=dolibarrBackup.tar.gz
+# Add day number in tar name to have 1 week backup (1 per day)
+DAY_NBR=$(date +%u)
+TAR_NAME="dolibarrBackup${DAY_NBR}.tar.gz"
 TAR_ROOT="${TAR_DIR}/${TAR_NAME}"
 
 # Launch DB backup
