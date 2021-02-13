@@ -6,6 +6,7 @@ GREEN='\033[1;32m'
 NC='\033[0m'
 
 TAR_DIR=~/dolibarrAutosave
+SHA1_FILE="${TAR_DIR}/sha1.txt"
 # Add day number in tar name to have 1 week backup (1 per day)
 DAY_NBR=$(date +%u)
 TAR_NAME="dolibarrBackup${DAY_NBR}.tar.gz"
@@ -56,7 +57,6 @@ echo -e "${GREEN} Done"
 # Create archive
 echo -e "${NC} Create tar.gz"
 sudo tar -czf "${TAR_ROOT}" /var/lib/automysqlbackup/daily
-
 if [ "$?" = "0" ]; then
   echo -e "${GREEN} Done"
   # Remove old files
@@ -64,6 +64,21 @@ if [ "$?" = "0" ]; then
   sudo rm -rf /var/lib/automysqlbackup/daily
   if [ "$?" = "0" ]; then
     echo -e "${GREEN} Done"
+
+    # Manage checksum to verify if the tar is differente than yesterday
+    echo -e "${NC} Calculate checksum"
+    SHA1=$(sudo sha1sum "${TAR_ROOT}")
+    echo "New ${SHA1}"
+    YEST_SHA1=$(cat "${SHA1_FILE}")
+    echo "yesterday ${YEST_SHA1}"
+    if ["${SHA1}" = "${YEST_SHA1}"]; then
+      echo -e "${NC} no changes in dolibarr so don't backup it"
+      rm -rf TAR_ROOT
+      exit 0
+    fi
+    sudo sha1sum "${TAR_ROOT}" > "${SHA1_FILE}"
+    echo -e "${GREEN} Done"
+exit 0
     echo -e "${NC} Send data to the cloud using rclone"
     /usr/bin/rclone copy --update --verbose --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "${TAR_ROOT}" "gdriveComputingify:dolibarrBackup"
     if [ "$?" = "0" ]; then
