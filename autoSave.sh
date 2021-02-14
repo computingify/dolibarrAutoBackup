@@ -7,6 +7,9 @@ NC='\033[0m'
 
 TAR_DIR=~/dolibarrAutosave
 SHA1_FILE="${TAR_DIR}/sha1.txt"
+PWD_FILE="${TAR_DIR}/toto.txt"
+PWD=$(cat "${PWD_FILE}")
+echo "${PWD}"
 # Add day number in tar name to have 1 week backup (1 per day)
 DAY_NBR=$(date +%u)
 TAR_NAME="dolibarrBackup${DAY_NBR}.tar.gz"
@@ -55,10 +58,9 @@ sudo cp -r /var/lib/dolibarr/documents /var/lib/automysqlbackup/daily/var/lib/do
 echo -e "${GREEN} Done"
 
 # Create archive
-echo -e "${NC} Create tar.gz"
+echo -e "${NC} Create tar.gz hardly encrypted"
 #sudo tar -czf "${TAR_ROOT}" /var/lib/automysqlbackup/daily
-sudo tar -czP "${TAR_ROOT}" /var/lib/automysqlbackup/daily | openssl enc -aes-256-cbc -salt -md sha512 -pbkdf2 -iter 100000 -e > "${TAR_ROOT}.enc"
-exit 0
+sudo tar -czP /var/lib/automysqlbackup/daily | openssl enc -aes-256-cbc -salt -md sha512 -pbkdf2 -iter 100000 -k "${PWD}" -e > "${TAR_ROOT}.enc"
 
 if [ "$?" = "0" ]; then
   echo -e "${GREEN} Done"
@@ -83,12 +85,12 @@ if [ "$?" = "0" ]; then
     echo -e "${GREEN} Done"
 
     echo -e "${NC} Send data to the cloud using rclone"
-    /usr/bin/rclone copy --update --verbose --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "${TAR_ROOT}" "gdriveComputingify:dolibarrBackup"
+    /usr/bin/rclone copy --update --verbose --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "${TAR_ROOT}.enc" "gdriveComputingify:dolibarrBackup"
     if [ "$?" = "0" ]; then
       echo -e "${GREEN} Done"
       # Remove tar file
       echo -e "${NC} Remove tar file sent"
-      rm -rf "${TAR_ROOT}"
+      rm -rf "${TAR_ROOT}.enc"
       if [ "$?" = "0" ]; then
         echo -e "${GREEN} Done"
       else
