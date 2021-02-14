@@ -57,6 +57,8 @@ echo -e "${GREEN} Done"
 # Create archive
 echo -e "${NC} Create tar.gz"
 sudo tar -czf "${TAR_ROOT}" /var/lib/automysqlbackup/daily
+sudo tar -cz "${TAR_ROOT}" /var/lib/automysqlbackup/daily | openssl enc -aes-256-cbc  -md sha512 -pbkdf2 -iter 100000 -e > "${TAR_ROOT}.enc"
+exit 0
 if [ "$?" = "0" ]; then
   echo -e "${GREEN} Done"
   # Remove old files
@@ -78,7 +80,7 @@ if [ "$?" = "0" ]; then
     fi
     sudo sha1sum "${TAR_ROOT}" > "${SHA1_FILE}"
     echo -e "${GREEN} Done"
-exit 0
+
     echo -e "${NC} Send data to the cloud using rclone"
     /usr/bin/rclone copy --update --verbose --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "${TAR_ROOT}" "gdriveComputingify:dolibarrBackup"
     if [ "$?" = "0" ]; then
