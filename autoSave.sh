@@ -56,9 +56,10 @@ echo -e "${GREEN} Done"
 
 # Create archive
 echo -e "${NC} Create tar.gz"
-sudo tar -czf "${TAR_ROOT}" /var/lib/automysqlbackup/daily
-sudo tar -cz "${TAR_ROOT}" /var/lib/automysqlbackup/daily | openssl enc -aes-256-cbc  -md sha512 -pbkdf2 -iter 100000 -e > "${TAR_ROOT}.enc"
+#sudo tar -czf "${TAR_ROOT}" /var/lib/automysqlbackup/daily
+sudo tar -czP "${TAR_ROOT}" /var/lib/automysqlbackup/daily | openssl enc -aes-256-cbc -salt -md sha512 -pbkdf2 -iter 100000 -e > "${TAR_ROOT}.enc"
 exit 0
+
 if [ "$?" = "0" ]; then
   echo -e "${GREEN} Done"
   # Remove old files
