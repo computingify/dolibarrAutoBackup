@@ -76,7 +76,6 @@ if [ "$?" = "0" ]; then
     echo "yesterday ${YEST_SHA1}"
     if ["${SHA1}" = "${YEST_SHA1}"]; then
       echo -e "${NC} no changes in dolibarr so don't backup it"
-#      rm -rf TAR_ROOT
       exit 0
     fi
     sudo sha1sum "${TAR_ROOT}" > "${SHA1_FILE}"
@@ -106,5 +105,4 @@ if [ "$?" = "0" ]; then
 else
   echo -e "${RED} Error in compressed file creation"
 fi
-#rm -rf TAR_ROOT
 exit 0
