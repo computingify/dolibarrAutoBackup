@@ -33,3 +33,25 @@ on creer un targz du tout
 on nomme ce tar en ajoutant le numero de la semaine a la fin, de cette maniere nois avons un fichier de backup par jour (celui ci est ecrase a la prochaine sauvegarde du meme jour)
 on envoi ce tar sur gDrive
 on supprime l'ensemble des fichiers temporaires
+
+
+# Paramétrage de l'envoie d'email
+## Partie Dolibarr
+Dans Configuration => Emails
+Paramètre
+Désactiver globalement tout envoi d'emails (pour mode test ou démos)	Non
+Envoyer tous les emails à (au lieu des vrais destinataires, à des fins de test)	
+
+Méthode d'envoi d'email	
+Méthode d'envoi d'email	SMTP/SMTPS socket library
+Nom d'hôte ou adresse IP du serveur SMTP/SMTPS (Par défaut dans php.ini: localhost)	smtp.gmail.com
+Nom d'hôte ou adresse IP du serveur SMTP/SMTPS (Par défaut dans php.ini: 25)	465
+ID SMTP (si le serveur d'envoi nécessite une authentification)	computingify.auto@gmail.com
+Mot de passe SMTP (si le serveur d'envoi nécessite une authentification)	*********
+Utilisation du chiffrement TLS (SSL)	Oui
+Utiliser le cryptage TTS (STARTTLS)	Non
+Autoriser les certificats auto-signés	Non
+
+## Partie Gmail
+1- Sur Gmail dans la partie configuration: autoriser la configuration aux applications moins sécurisées
+2- Désactiver les captcha: https://accounts.google.com/DisplayUnlockCaptcha
