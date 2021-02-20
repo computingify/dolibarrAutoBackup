@@ -55,3 +55,30 @@ Autoriser les certificats auto-signés	Non
 ## Partie Gmail
 1- Sur Gmail dans la partie configuration: autoriser la configuration aux applications moins sécurisées
 2- Désactiver les captcha: https://accounts.google.com/DisplayUnlockCaptcha
+
+
+# Synchro avec nextcloud
+## Installation de nextCloud client sur raspibarr
+    Ajout du dépôt pour le nextcloud-client :
+
+    echo "deb https://m4lvin.github.io/nextcloud-client-debian-packaging/ /" > /etc/apt/sources.list.d/nextcloud-client-m4lvin.list
+
+    Téléchargement de la clé :
+
+    gpg --keyserver pgpkeys.mit.edu --recv-key 51B6417AB18303DE
+
+    Ajout de la clé :
+
+    gpg -a --export 51B6417AB18303DE | sudo apt-key add -
+
+    Mise à jour :
+
+    apt update
+
+    Installer le paquet nextcloud-client :
+
+    apt install nextcloud-client
+## Ajouter dans le script un truc comme:
+synchro vers nextcloud
+nextcloudcmd "$backupdir" https://User_Nextcloud:MDP_User_Nextcloud@nextcloud.domaine.tld/remote.php/webdav/
+

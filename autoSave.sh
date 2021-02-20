@@ -78,11 +78,13 @@ if [ "$?" = "0" ]; then
       echo -e "${NC} no changes in dolibarr so don't backup it"
       exit 0
     fi
+    echo -e "Calculating sha1"
     sudo sha1sum "${TAR_ROOT}" > "${SHA1_FILE}"
     echo -e "${GREEN} Done"
 
     echo -e "${NC} Send data to the cloud using rclone"
-    /usr/bin/rclone copy --update --verbose --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "${TAR_ROOT}" "gdriveComputingify:dolibarrBackup"
+    sudo /usr/bin/rclone copy --no-check-certificate --update --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "${TAR_ROOT}" "nextCloud:Computingify/backup/dolibarr"
+    /usr/bin/rclone copy --update --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "${TAR_ROOT}" "gdriveComputingify:dolibarrBackup"
     if [ "$?" = "0" ]; then
       echo -e "${GREEN} Done"
       # Remove tar file
