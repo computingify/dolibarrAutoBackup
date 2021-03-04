@@ -17,12 +17,7 @@ TAR_ROOT="${TAR_DIR}/${TAR_NAME}.enc"
 # Launch DB backup
 echo -e "${NC} Launch DB backup"
 sudo automysqlbackup
-if [ "$?" = "0" ]; then
-  echo -e "${GREEN} Done"
-else
-  echo -e "${RED} Error in database backup create"
-  exit 1
-fi
+echo -e "${GREEN} Done"
 
 # Configuration file backup
 echo -e "${NC} Directory creation for config"
@@ -85,7 +80,7 @@ if [ "$?" = "0" ]; then
 
     echo -e "${NC} Send data to the cloud using rclone"
 #    sudo /usr/bin/rclone copy -v --no-check-certificate --update --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "${TAR_ROOT}" "nextCloud:Computingify/backup/dolibarr"
-    /usr/bin/rclone copy -v --no-check-certificate --update --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "${TAR_ROOT}" "nextCloudInt:Computingify/backup/dolibarr"
+    /usr/bin/rclone copy -v --no-check-certificate --update --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "${TAR_ROOT}" "nextCloudInt:Computingify/Backup/dolibarr"
     /usr/bin/rclone copy --update --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "${TAR_ROOT}" "gdriveComputingify:dolibarrBackup"
     if [ "$?" = "0" ]; then
       echo -e "${GREEN} Done"

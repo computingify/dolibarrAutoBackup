@@ -82,3 +82,24 @@ Autoriser les certificats auto-signés	Non
 synchro vers nextcloud
 nextcloudcmd "$backupdir" https://User_Nextcloud:MDP_User_Nextcloud@nextcloud.domaine.tld/remote.php/webdav/
 
+# Installation de GTest sur RPi
+
+## Installer gcc et g++
+sudo apt install gcc
+sudo apt install g++
+
+## Installer GTest
+sudo apt install libgtest-dev
+
+## Installation de cmake
+sudo apt install cmake
+
+## Contruction de GTest
+cd /usr/src/gtest
+sudo cmake CMakeLists.txt
+sudo make
+
+## création d'uun lien symbolic pour l'utilisation
+sudo cp lib/*.a /usr/lib
+
+
