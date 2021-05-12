@@ -82,6 +82,16 @@ Autoriser les certificats auto-signés	Non
 synchro vers nextcloud
 nextcloudcmd "$backupdir" https://User_Nextcloud:MDP_User_Nextcloud@nextcloud.domaine.tld/remote.php/webdav/
 
+## Connection avec des serveur de backup (nextcloud)
+utilisation de rclone
+Pour en configurer ou modifier un:
+```shell
+rclone config
+```
+Lister les different remote dispo
+```shell
+rclone listremotes
+```
 # Installation de GTest sur RPi
 
 ## Installer gcc et g++
