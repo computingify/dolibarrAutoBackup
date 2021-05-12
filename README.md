@@ -88,6 +88,7 @@ Pour en configurer ou modifier un:
 ```shell
 rclone config
 ```
+Dans la config il faut mettre l'adresse suivante pour le nextcloud: https://192.168.0.50:443/remote.php/dav/files/Computingify
 Lister les different remote dispo
 ```shell
 rclone listremotes
