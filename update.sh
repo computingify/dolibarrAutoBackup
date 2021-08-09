@@ -8,7 +8,7 @@ NC='\033[0m'
 ##Update Raspberry
 echo -e "Update the Raspberry Pi"
 sudo apt update
-sudo apt -y upgarde
+sudo apt -y upgrade
 sudo apt autoremove
 
 exit 0

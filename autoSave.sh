@@ -107,10 +107,4 @@ else
   echo -e "${RED} Error in compressed file creation"
 fi
 
-# Update Raspberry
-echo -e "Update the Raspberry Pi"
-sudo apt update
-sudo apt -y upgarde
-sudo apt autoremove
-
 exit 0

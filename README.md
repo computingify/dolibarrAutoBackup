@@ -15,7 +15,7 @@ Prendre le script de autoSave.sh qui se trouve sous git
 chmod +x autosave.sh
 
 # Ajouter dans cron
-crontad -e
+crontab -e
 ## Run dolibarr backup every monday a 1:00am
 0 1 * * * ~/dolibarrAutosave/autoSave.sh
 ## Avoir un retour de la tache cron:
