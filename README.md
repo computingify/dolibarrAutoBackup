@@ -33,12 +33,8 @@ on creer un targz du tout
 on nomme ce tar en ajoutant le numero de la semaine a la fin, de cette maniere nois avons un fichier de backup par jour (celui ci est ecrase a la prochaine sauvegarde du meme jour)
 
 #Decrypter et Extraire l'archive
+
 mkdir ext | openssl enc -aes-256-cbc -md sha512 -pbkdf2 -iter 100000 -salt -d -in dolibarrBackup1.tar.gz.enc | tar xz -C ext
-
-
-nc -aes-256-cbc -d -in dolibarrBackup.tar.gz.enc -out dolibarrBackup.tar.gz
-### Extracting
-tar -xf dolibarrBackup.tar.gz.tar.gz
 
 # Paramétrage de l'envoie d'email
 ## Partie Dolibarr
