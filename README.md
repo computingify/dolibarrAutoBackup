@@ -34,6 +34,11 @@ on nomme ce tar en ajoutant le numero de la semaine a la fin, de cette maniere n
 on envoi ce tar sur gDrive
 on supprime l'ensemble des fichiers temporaires
 
+## Utilisation de l'archive crypté
+### Décrypter
+openssl enc -aes-256-cbc -d -in dolibarrBackup.tar.gz.enc -out dolibarrBackup.tar.gz
+### Extracting
+tar -xf dolibarrBackup.tar.gz.tar.gz
 
 # Paramétrage de l'envoie d'email
 ## Partie Dolibarr

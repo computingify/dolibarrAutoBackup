@@ -111,5 +111,6 @@ fi
 echo -e "Update the Raspberry Pi"
 sudo apt update
 sudo apt -y upgarde
+sudo apt autoremove
 
 exit 0
