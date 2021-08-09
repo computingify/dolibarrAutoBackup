@@ -53,7 +53,7 @@ echo -e "${GREEN} Done"
 
 # Create archive
 echo -e "${NC} Create tar.gz hardly encrypted"
-sudo tar -czP /var/lib/automysqlbackup/daily | openssl enc -aes-256-cbc -salt -md sha512 -pbkdf2 -iter 100000 -k "${PWD}" -e > "${TAR_ROOT}"
+sudo tar -czP /var/lib/automysqlbackup/daily | openssl enc -aes-256-cbc -md sha512 -pbkdf2 -iter 100000 -salt -k "${PWD}" -e > "${TAR_ROOT}"
 
 if [ "$?" = "0" ]; then
   echo -e "${GREEN} Done"
