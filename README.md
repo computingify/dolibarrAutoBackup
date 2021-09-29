@@ -113,4 +113,70 @@ sudo make
 ## création d'uun lien symbolic pour l'utilisation
 sudo cp lib/*.a /usr/lib
 
+# Installation de dolibarr
 
+## Update de la distrib
+```shell
+apt update && apt upgrade -y
+```
+## Téléchargement du .deb
+https://sourceforge.net/projects/dolibarr/files/Dolibarr%20installer%20for%20Debian-Ubuntu%20%28DoliDeb%29/
+
+Copier celui-ci sur la cible (docker debian)
+Récupérer l'id du container
+```shell
+adrien@MSI:/mnt/c/Users/compu/Downloads$ docker ps
+CONTAINER ID   IMAGE              COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+1ac658496dba   bfaf82724969       "bash"                   39 minutes ago   Up 39 minutes                                           focused_perlman
+```
+Réaliser la copie
+```shell
+adrien@MSI:/mnt/c/Users/compu/Downloads$ docker cp dolibarr_14.0.2-4_all.deb 1ac658496dba:/dolibarr_14.0.2-4_all.deb
+```
+
+## Installation de dolibarr
+Depuis un docker tout près
+Create docker-compose.yml file as following:
+```shell
+version: '3'
+
+volumes:
+  dolibarr_html:
+  dolibarr_docs:
+  dolibarr_db:
+
+services:
+
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    command: --character_set_client=utf8 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - dolibarr_db:/var/lib/mysql
+    environment:
+        - "MYSQL_DATABASE=dolibarr"
+        - "MYSQL_USER=dolibarr"
+        - "MYSQL_PASSWORD=dolibarr"
+        - "MYSQL_RANDOM_ROOT_PASSWORD=yes"
+
+  dolibarr:
+    image: upshift/dolibarr:latest
+    restart: always
+    depends_on:
+        - mariadb
+    ports:
+        - "8080:80"
+    environment:
+        - "DOLI_DB_HOST=mariadb"
+        - "DOLI_DB_NAME=dolibarr"
+        - "DOLI_DB_USER=dolibarr"
+        - "DOLI_DB_PASSWORD=dolibarr"
+    volumes:
+        - dolibarr_html:/var/www/html
+        - dolibarr_docs:/var/www/documents
+```
+Then run all services docker-compose up -d. Now, go to http://localhost:8080 to access the new Dolibarr installation wizard.
+DOLI_ADMIN_LOGIN
+Default value: admin
+DOLI_ADMIN_PASSWORD
+Default value: dolibarr
