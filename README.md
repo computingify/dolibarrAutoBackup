@@ -115,25 +115,6 @@ sudo cp lib/*.a /usr/lib
 
 # Installation de dolibarr
 
-## Update de la distrib
-```shell
-apt update && apt upgrade -y
-```
-## Téléchargement du .deb
-https://sourceforge.net/projects/dolibarr/files/Dolibarr%20installer%20for%20Debian-Ubuntu%20%28DoliDeb%29/
-
-Copier celui-ci sur la cible (docker debian)
-Récupérer l'id du container
-```shell
-adrien@MSI:/mnt/c/Users/compu/Downloads$ docker ps
-CONTAINER ID   IMAGE              COMMAND                  CREATED          STATUS          PORTS                                   NAMES
-1ac658496dba   bfaf82724969       "bash"                   39 minutes ago   Up 39 minutes                                           focused_perlman
-```
-Réaliser la copie
-```shell
-adrien@MSI:/mnt/c/Users/compu/Downloads$ docker cp dolibarr_14.0.2-4_all.deb 1ac658496dba:/dolibarr_14.0.2-4_all.deb
-```
-
 ## Installation de dolibarr
 Depuis un docker tout près
 Create docker-compose.yml file as following:
@@ -180,3 +161,5 @@ DOLI_ADMIN_LOGIN
 Default value: admin
 DOLI_ADMIN_PASSWORD
 Default value: dolibarr
+
+info sur https://github.com/upshift-docker/dolibarr
