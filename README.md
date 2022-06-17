@@ -53,9 +53,20 @@ Utiliser le cryptage TTS (STARTTLS)	Non
 Autoriser les certificats auto-signés	Non
 
 ## Partie Gmail
-1- Sur Gmail dans la partie configuration: autoriser la configuration aux applications moins sécurisées
-2- Désactiver les captcha: https://accounts.google.com/DisplayUnlockCaptcha
+Comme Dolibarr ne prend pas en charge la connexion avec google via l'autentification sur la page de google, il faut créer un mot de passe dédié à notre Dolibarr
+Se rendre sur la page de configuration de sécurité de notre compte google: https://myaccount.google.com
+1- Activé la double authentification pour le compte
+2- Générer un mot de passe pour l'application Dolibarr
+3- Prend le mot de passe généré par google et le mettre en lieu et place du mot de passe de connexion au serveur smtp dans dolibarr
+Plus dinformation sur la page d'aide de google: https://support.google.com/mail/answer/185833?hl=fr
 
+Config du serveur mail dans dolibarr:
+Méthode d'envoi d'email:	SMTP/SMTPS socket library
+Nom d'hôte ou adresse IP du serveur SMTP/SMTPS (Par défaut dans php.ini: localhost):	smtp.gmail.com
+Nom d'hôte ou adresse IP du serveur SMTP/SMTPS (Par défaut dans php.ini: 25):	465
+ID SMTP (si le serveur d'envoi nécessite une authentification): Adresse mail de notre compte google
+Mot de passe SMTP (si le serveur d'envoi nécessite une authentification): le mot de passe généré par google
+Utilisation du chiffrement TLS (SSL):	Oui
 
 # Synchro avec nextcloud
 ## Installation de nextCloud client sur raspibarr
