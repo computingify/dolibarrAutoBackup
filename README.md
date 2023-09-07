@@ -189,6 +189,10 @@ sudo apt install mariadb-server -y
 ### MariaDB Data Base config
 Log to mysql with root user
 ```shell
+sudo mysql -u root -p
+```
+or
+```shell
 sudo mysql
 ```
 
