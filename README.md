@@ -174,3 +174,62 @@ DOLI_ADMIN_PASSWORD
 Default value: dolibarr
 
 info sur https://github.com/upshift-docker/dolibarr
+
+
+## Latest installation for Ced
+
+This installation is made on ARM64 proco, it's installed on Freebox VM based on debian
+
+### MariaDB installation
+A simple package installation
+```shell
+sudo apt install mariadb-server -y
+```
+
+### MariaDB Data Base config
+Log to mysql with root user
+```shell
+sudo mysql
+```
+
+Create data base
+```shell
+create database dolibarrdebian;
+```
+
+Create User and grant the access
+```shell
+grant all privileges on dolibarrdebian.* TO dolibarrdebian@'localhost' identified by 'YOUR_DB_PWD';
+```
+Exchange YOUR_DB_PWD by your password (remender this password because you need it at dolibarr config)
+
+Apply MariaDb modification
+```shell
+flush privileges;
+```
+
+### Dolibarr installation
+Get installation package
+```shell
+wget https://downloads.sourceforge.net/project/dolibarr/Dolibarr%20installer%20for%20Debian-Ubuntu%20%28DoliDeb%29/18.0.0/dolibarr_18.0.0-4_all.deb
+```
+Exchange the 18.0.0 version by yours
+
+Dolibarr installation
+```shell
+sudo dpkg -i dolibarr_18.0.0-4_all.deb
+```
+
+In case of installation error (due to missing dependancies)
+```shell
+sudo apt install -f
+```
+
+### Dolibarr config
+Go to your dolibarr IP address /dolibarr/install
+
+In configuration page, DO NOT select:
+- data base creation
+- user creation
+
+Find the data base password access by those one set at data base user creation
