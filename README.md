@@ -236,4 +236,4 @@ In configuration page, DO NOT select:
 - data base creation
 - user creation
 
-Find the data base password access by those one set at data base user creation
+Fill the data base password access by those one set at data base user creation
